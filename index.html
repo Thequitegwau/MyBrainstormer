@@ -3,10 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Idea Expander — Student Brainstorm Tool</title>
+  
   <style>
     :root{--bg:#0f1724;--card:#0b1220;--muted:#9aa4b2;--accent:#6ee7b7;--glass:rgba(255,255,255,0.03)}
-    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;color:#e6eef6;background:linear-gradient(180deg,#071028 0%,#081428 100%)}
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color: #e6eef6;
+      background: 
+        linear-gradient(rgba(15,23,36,0.7), rgba(8,20,40,0.7)),
+        url('https://catalystforbusiness.com/wp-content/uploads/2019/06/business-expansion-guide.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
     .wrap{max-width:1100px;margin:28px auto;padding:24px;}
     header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
     h1{margin:0;font-size:20px;letter-spacing:-0.2px}
@@ -40,11 +49,11 @@
   <div class="wrap">
     <header>
       <div>
-        <h1>Idea Expander — Student Brainstorm Tool</h1>
+        <h1 style="color:#007BFF">Idea Expander — Student Brainstorm Tool</h1>
         <p class="lead">Paste a topic, choose options, click <strong>Generate</strong>. Professionally designed to keep you confident in front of classmates.</p>
       </div>
       <div class="right small">
-        <span class="kbd">Single HTML — ready for GitHub Pages</span>
+       <span class="kbd" style="color:pink">Enjoy your idea expanding with MyBrainstormer</span>
       </div>
     </header>
 
@@ -53,7 +62,7 @@
         <label for="topic">Your topic / prompt</label>
         <input id="topic" type="text" placeholder="e.g. 'AI in healthcare', 'urban gardening', 'post-colonial literature'"/>
 
-        <div style="display:flex;gap:10px;margin-top:12px;align-items:center">
+        <div style="display:flex;gap:10px;margin-top:12px;align-items:center;color:blue">
           <div style="flex:1">
             <label>Idea count</label>
             <select id="count">
