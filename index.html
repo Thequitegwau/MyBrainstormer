@@ -49,11 +49,11 @@
   <div class="wrap">
     <header>
       <div>
-        <h1 style="color:#007BFF">Idea Expander — Student Brainstorm Tool</h1>
+         <h1 style="color: #ff0015; background-color: #f0f0f0; padding-block: 13px;">  Idea Expander — Student Brainstorm Tool</h1>
         <p class="lead">Paste a topic, choose options, click <strong>Generate</strong>. Professionally designed to keep you confident in front of classmates.</p>
       </div>
       <div class="right small">
-       <span class="kbd" style="color:pink">Enjoy your idea expanding with MyBrainstormer</span>
+       <span class="kbd" style="color:pink">Enjoy your idea expansion with MyBrainstormer</span>
       </div>
     </header>
 
@@ -62,15 +62,16 @@
         <label for="topic">Your topic / prompt</label>
         <input id="topic" type="text" placeholder="e.g. 'AI in healthcare', 'urban gardening', 'post-colonial literature'"/>
 
-        <div style="display:flex;gap:10px;margin-top:12px;align-items:center;color:blue">
+        <div style="display:flex;gap:10px;margin-top:12px;align-items:center;color:rgb(0, 195, 255)">
           <div style="flex:1">
             <label>Idea count</label>
-            <select id="count">
-              <option value="8">8</option>
-              <option value="12" selected>12</option>
-              <option value="20">20</option>
-              <option value="30">30</option>
+            <select>
+                   <option value="8" style="background-color: oklab(58.35900000000001% 0.20626 0.11363 / 0.753);">8</option>
+                   <option value="12" selected style="background-color: #ee0707;">12</option>
+                   <option value="20" style="background-color: #e40d0d;">20</option>
+                   <option value="30" style="background-color: #ec0f0f;">30</option>
             </select>
+
           </div>
           <div style="width:160px">
             <label>Tone</label>
@@ -85,8 +86,8 @@
 
         <div class="controls">
           <button class="btn btn-primary" id="generateBtn">Generate ideas</button>
-          <button class="btn btn-ghost" id="randomizeBtn">Randomize</button>
-          <button class="btn btn-ghost" id="clearBtn">Clear</button>
+          <button class="btn btn-ghost" id="randomizeBtn" style="background-color: #664caf; color: white;">Randomize</button>
+          <button class="btn btn-ghost" id="clearBtn" style="background-color: #f44336; color: white;">Clear</button>
           <div class="right" style="margin-left:auto">
             <button class="btn btn-ghost" id="exportMd">Export .md</button>
             <button class="btn btn-ghost" id="copyAll">Copy all</button>
