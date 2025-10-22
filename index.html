@@ -45,12 +45,81 @@
     @media (max-width:980px){.grid{grid-template-columns:1fr;}.wrap{padding:14px}}
   </style>
 </head>
+<script>
+const defaultStyles = new Map();
+
+window.onload = () => {
+  // store the original styles of every element
+  document.querySelectorAll("*").forEach(el => {
+    defaultStyles.set(el, {
+      backgroundColor: el.style.backgroundColor,
+      color: el.style.color,
+      borderColor: el.style.borderColor
+    });
+  });
+  document.body.dataset.mode = "dark";
+  document.body.style.backgroundColor = "black";
+  document.body.style.color = "white";
+};
+
+function toggleMode() {
+  const btn = document.getElementById("modeBtn");
+  const isDay = document.body.dataset.mode === "day";
+
+  if (isDay) {
+    // switch to dark mode
+    document.querySelectorAll("*").forEach(el => {
+      el.style.backgroundColor = "black";
+      el.style.color = "white";
+      el.style.borderColor = "black";
+    });
+    btn.textContent = "☀️ Day Mode";
+    btn.style.backgroundColor = "#111";
+    btn.style.color = "white";
+    document.body.dataset.mode = "dark";
+  } else {
+    // switch to full white mode
+    document.querySelectorAll("*").forEach(el => {
+      el.style.backgroundColor = "white";
+      el.style.color = "black";
+      el.style.borderColor = "white";
+    });
+    btn.textContent = "🌙 Dark Mode";
+    btn.style.backgroundColor = "#ddd";
+    btn.style.color = "black";
+    document.body.dataset.mode = "day";
+  }
+}
+
+function resetMode() {
+  // restore original page styles
+  defaultStyles.forEach((styles, el) => {
+    el.style.backgroundColor = styles.backgroundColor;
+    el.style.color = styles.color;
+    el.style.borderColor = styles.borderColor;
+  });
+  const btn = document.getElementById("modeBtn");
+  btn.textContent = "☀️ Day Mode";
+  btn.style.backgroundColor = "#111";
+  btn.style.color = "white";
+  document.body.dataset.mode = "dark";
+}
+</script>
+
 <body>
-  <div class="wrap">
+ 
+ <button id="modeBtn" onclick="toggleMode()" style="position:fixed;top:15px;right:90px;padding:8px 12px;border:none;border-radius:8px;background-color:#111;color:white;cursor:pointer;">☀️ Day Mode</button>
+
+
+
+
+
+ <button id="resetBtn" onclick="resetMode()" style="position:fixed;top:15px;right:15px;padding:8px 12px;border:none;border-radius:8px;background-color:#4307e9;color:white;cursor:pointer;">🔁 Reset</button>
+
+ <div class="wrap">
     <header>
       <div><!-- Import Google Font -->
-      <!-- Import Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
 
 <h1 style="
   font-family: 'Montserrat', sans-serif;
@@ -66,7 +135,6 @@
   Idea Expander — Student Brainstorm Tool
 </h1>
 
-      
         <p class="lead">Paste a topic, choose options, click <strong>Generate</strong>. Professionally designed to keep you confident in front of classmates.</p>
       </div>
       <div class="right small">
@@ -82,14 +150,12 @@
         <div style="display:flex;gap:10px;margin-top:12px;align-items:center;color:rgb(0, 195, 255)">
           <div style="flex:1">
             <label>Idea count</label>
-            <select>
-                   <option value="8" style="background-color: oklab(95.195% -0.0084 -0.00547 / 0.753);">8</option>
+            <select id="count">
+                   <option value="8" style="background-color: #f0f7f6;">8</option>
                    <option value="12" selected style="background-color: #f0f7f6;">12</option>
                    <option value="20" style="background-color: #e8ebea;">20</option>
                    <option value="30" style="background-color: #f2f6f7;">30</option>
-                   <option value="50" style="background-color: #f2f6f7;">50</option>
             </select>
-
           </div>
           <div style="width:160px">
             <label>Tone</label>
@@ -208,106 +274,6 @@
         'What are the main benefits of {topic} for {group}?',
         'Where can {topic} be applied to improve {system}?',
         'When is the optimal time to implement {topic} in {context}?'
-        'Best practices for integrating {topic} in {industry}',
-        'Key challenges of {topic} for {audience}',
-        'How {topic} can influence {outcome} in {context}?',
-        'Strategies to measure the effectiveness of {topic}',
-        'Steps to implement {topic} in {organization}',
-        'Impact of {topic} on {group} behavior',
-        'Lessons learned from {topic} in {context}',
-        'Comparison between {topic} and {alternative}',
-        'How {topic} affects productivity in {industry}?',
-        'Ways to promote {topic} among {audience}',
-        'Tools to optimize {topic} for {purpose}',
-        'Case studies on {topic} in {sector}',
-        'Risks associated with {topic} for {organization}',
-        'Opportunities created by {topic} in {market}',
-        'How {topic} shapes decision-making in {context}?',
-        'Measuring success metrics for {topic}',
-        'Common misconceptions about {topic}',
-        'How to overcome barriers to {topic}',
-        'The role of {topic} in achieving {goal}',
-        'Effective communication strategies for {topic}',
-        'How {topic} improves efficiency in {process}?',
-        'Key stakeholders involved in {topic}',
-        'Methods to evaluate {topic} in {environment}',
-        'Influence of {topic} on {audience} engagement',
-        'Trends shaping the future of {topic}',
-        'Ethical considerations of {topic} in {context}',
-        'How {topic} contributes to innovation in {industry}?',
-        'Techniques for teaching {topic} to {group}',
-        'Ways {topic} can enhance {experience}',
-        'How to scale {topic} across {organization}',
-        'Challenges of adapting {topic} in {culture}',
-        'Benefits of {topic} for {department}',
-        'How {topic} interacts with {other_topic}?',
-        'Steps to integrate {topic} with {system}',
-        'How {topic} impacts {metric} in {context}?',
-        'Common mistakes when applying {topic}',
-        'How {topic} supports {strategy} in {organization}?',
-        'Guidelines for managing {topic} effectively',
-        'How {topic} influences learning outcomes for {group}?',
-        'Techniques to measure user satisfaction with {topic}',
-        'Lessons from failures in {topic} implementation',
-        'How {topic} affects team dynamics in {context}?',
-        'Ways to innovate using {topic}',
-        'How {topic} drives growth in {market}?',
-        'Key performance indicators for {topic}',
-        'Challenges in evaluating {topic}?',
-        'How {topic} enhances customer experience in {sector}?',
-        'Risks and mitigations for {topic}',
-        'How {topic} fosters collaboration in {group}?',
-        'Frameworks for analyzing {topic}',
-        'How {topic} impacts sustainability in {industry}?',
-        'Techniques to encourage adoption of {topic}',
-        'How {topic} changes behavior in {audience}?',
-        'The relationship between {topic} and {outcome}?',
-        'How {topic} influences strategic planning',
-        'Methods to optimize {topic} for {goal}?',
-        'Lessons learned from successful {topic} projects',
-        'How {topic} impacts mental health in {group}?',
-        'Ways to measure ROI of {topic}',
-        'Challenges in standardizing {topic} across {organization}?',
-        'How {topic} enhances communication in {team}?',
-        'The role of {topic} in {event} planning',
-        'Techniques for improving {topic} outcomes?',
-        'How {topic} affects decision-making in {sector}?',
-        'Methods to analyze the effectiveness of {topic}',
-        'How {topic} supports innovation in {organization}?',
-        'Challenges in implementing {topic} globally',
-        'How {topic} impacts engagement metrics in {context}?',
-        'Ways {topic} can be used for skill development',
-        'The influence of {topic} on cultural practices?',
-        'Strategies to integrate {topic} into curricula',
-        'How {topic} contributes to organizational goals?',
-        'Techniques to assess {topic} adoption',
-        'The impact of {topic} on {audience} satisfaction?',
-        'Ways to encourage participation in {topic} initiatives',
-        'How {topic} affects digital transformation in {industry}?',
-        'Risks of ignoring {topic} in {context}?',
-        'How {topic} enhances creativity in {group}?',
-        'Methods to standardize {topic} across projects',
-        'How {topic} impacts workflow efficiency?',
-        'Techniques for communicating the value of {topic}',
-        'How {topic} drives behavioral change in {audience}?',
-        'Strategies to mitigate challenges in {topic}',
-        'How {topic} supports inclusive practices in {context}?',
-        'The role of {topic} in knowledge management',
-        'Metrics for evaluating {topic} impact?',
-        'How {topic} influences policy-making in {sector}?',
-        'Best approaches for integrating {topic} with {technology}?',
-        'How {topic} affects motivation in {team}?',
-        'Techniques for enhancing {topic} adoption?',
-        'How {topic} contributes to competitive advantage?',
-        'Challenges of maintaining quality in {topic}?',
-        'How {topic} impacts resource allocation?',
-        'Steps to improve {topic}-related decision-making?',
-        'How {topic} influences social behavior in {group}?',
-        'Strategies to expand {topic} reach in {community}?',
-        'How {topic} supports sustainable practices?',
-        'Methods for analyzing stakeholder perception of {topic}?',
-        'How {topic} affects performance in {department}?',
-        'Ways to innovate using insights from {topic}?'  
       ];
 
       function randomChoice(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
