@@ -279,38 +279,39 @@ function resetMode() {
 
       function randomChoice(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
-      function generateIdeas() {
-        const topic = topicEl.value.trim() || 'Your topic';
-        const count = parseInt(countEl.value);
-        const tone = toneEl.value;
-        ideasEl.innerHTML='';
-        for(let i=0;i<count;i++){
-          let template = randomChoice(templates);
-          template = template.replaceAll('{topic}', topic)
-                             .replaceAll('{context}', 'relevant context')
-                             .replaceAll('{related}', 'a related topic')
-                             .replaceAll('{method}', 'a method')
-                             .replaceAll('{audience}', 'the target audience')
-                             .replaceAll('{field}', 'another field')
-                             .replaceAll('{medium}', 'creative medium')
-                             .replaceAll('{metric}', 'a measurable metric')
-                             .replaceAll('{global_issue}', 'global issue')
-                             .replaceAll('{community}', 'specific community')
-                             .replaceAll('{system}', 'existing system')
-                             .replaceAll('{variable}', 'key variable')
-                             .replaceAll('{technology}', 'modern technology')
-                             .replaceAll('{media_type}', 'media type')
-                             .replaceAll('{similar_issue}', 'similar issue')
-                             .replaceAll('{art_form}', 'art form')
-                             .replaceAll('{industry}', 'industry')
-                             .replaceAll('{group}', 'target group');
-          const div=document.createElement('div');
-          div.className='idea';
-          div.innerHTML=`<h3>${template}</h3><div class="meta">Tone: ${tone}</div>`;
-          div.onclick=()=>showDetail(template);
-          ideasEl.appendChild(div);
-        }
-      }
+      async function generateIdeas() {
+  const topic = topicEl.value.trim() || 'Your topic';
+  const count = parseInt(countEl.value);
+  const tone = toneEl.value;
+
+  ideasEl.innerHTML = '<div class="small">⏳ Generating ideas... please wait.</div>';
+
+  try {
+    const response = await fetch("http://localhost:3000/api/generate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ topic, count, tone })
+    });
+    const data = await response.json();
+
+    // Parse ideas — assume AI returns a numbered list
+    const ideaLines = data.ideas.split(/\n+/).filter(line => line.trim());
+    ideasEl.innerHTML = '';
+
+    ideaLines.forEach(line => {
+      const clean = line.replace(/^\d+[\).]?\s*/, '');
+      const div = document.createElement('div');
+      div.className = 'idea';
+      div.innerHTML = `<h3>${clean}</h3><div class="meta">Tone: ${tone}</div>`;
+      div.onclick = () => showDetail(clean);
+      ideasEl.appendChild(div);
+    });
+  } catch (error) {
+    ideasEl.innerHTML = '<div class="small" style="color:red;">❌ Failed to generate ideas. Check your backend.</div>';
+    console.error(error);
+  }
+}
+
 
       function showDetail(text){
         selectedArea.innerHTML=`<div class="outline">
